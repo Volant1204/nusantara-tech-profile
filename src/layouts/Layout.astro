@@ -1,23 +1,29 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
+const { judulHalaman = "Nusantara Tech" } = Astro.props;
+---
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{judulHalaman}</title>
+  </head>
+  
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    
+    <nav class="bg-gray-900 text-white p-4 shadow-md">
+      <div class="container mx-auto flex gap-6 justify-center font-semibold">
+        <a href="/" class="hover:text-blue-400 transition-colors">Beranda</a>
+        <a href="/layanan" class="hover:text-blue-400 transition-colors">Layanan</a>
+        <a href="/tentang" class="hover:text-blue-400 transition-colors">Tentang</a>
+		<a href="/kontak" class="hover:text-blue-400 transition-colors">Kontak</a>
+		<a href="/blog" class="hover:text-blue-400 transition-colors">Blog</a>
+      </div>
+    </nav>
+    
+    <main class="container mx-auto p-8 mt-4 bg-white shadow-lg rounded-lg min-h-[70vh]">
+      <slot />
+    </main>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+  </body>
+</html>

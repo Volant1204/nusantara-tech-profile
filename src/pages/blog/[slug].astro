@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const semuaArtikel = await getCollection('blog');
+  return semuaArtikel.map((artikel) => ({
+    params: { slug: artikel.id.replace('.md', '') }, 
+    props: { artikel },
+  }));
+}
+
+const { artikel } = Astro.props as { artikel: CollectionEntry<'blog'> };
+const { Content } = await render(artikel);
+---
+
+<Layout judulHalaman={`${artikel.data.title} - Nusantara Tech`}>
+  <article class="max-w-3xl mx-auto py-8">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-4">{artikel.data.title}</h1>
+    <p class="text-gray-500 mb-8 pb-4 border-b">
+      Ditulis oleh {artikel.data.author} pada {artikel.data.date.toLocaleDateString('id-ID')}
+    </p>
+    
+    <!-- Ini akan merender isi Markdown menjadi HTML -->
+    <div class="prose max-w-none text-gray-700 leading-relaxed">
+      <Content />
+    </div>
+    
+    <div class="mt-12">
+      <a href="/blog" class="text-blue-600 font-semibold hover:underline">&larr; Kembali ke Blog</a>
+    </div>
+  </article>
+</Layout>

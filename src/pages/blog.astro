@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Ambil semua artikel dari folder content/blog
+const semuaArtikel = await getCollection('blog');
+---
+
+<Layout judulHalaman="Blog - Nusantara Tech">
+  <div class="max-w-3xl mx-auto py-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Blog Kami</h1>
+    
+    <div class="space-y-6">
+      {semuaArtikel.map((artikel: any) => (
+        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+          <h2 class="text-2xl font-bold text-blue-600 mb-2">{artikel.data.title}</h2>
+          <p class="text-sm text-gray-500 mb-4">
+            Ditulis oleh {artikel.data.author} pada {artikel.data.date.toLocaleDateString('id-ID')}
+          </p>
+                    <!-- Link ke halaman detail artikel -->
+          <a href={`/blog/${artikel.id.replace('.md', '')}`} class="text-blue-500 font-semibold hover:underline">
+            Baca Selengkapnya &rarr;
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

@@ -1,11 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout judulHalaman="Beranda - Nusantara Tech">
+  <div class="text-center py-16">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6">
+      Solusi Digital untuk <span class="text-blue-600">Masa Depan</span>
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+      Kami adalah perusahaan yang bergerak di bidang solusi digital. Membantu bisnis Anda tumbuh dan beradaptasi di era teknologi.
+    </p>
+    <a href="/layanan" class="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition duration-300 shadow-lg">
+      Lihat Layanan Kami
+    </a>
+  </div>
 </Layout>

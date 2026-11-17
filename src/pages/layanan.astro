@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { daftarLayanan } from '../data/layanan.js';
+---
+
+<Layout judulHalaman="Layanan - Nusantara Tech">
+  <div class="text-center mb-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Layanan Kami</h1>
+    <p class="text-gray-600">Solusi lengkap untuk kebutuhan digital bisnis Anda.</p>
+  </div>
+  
+  <!-- Grid untuk membuat kotak-kotak -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {daftarLayanan.map((layanan) => (
+      <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+        <h3 class="text-xl font-bold text-blue-600 mb-3">{layanan.nama}</h3>
+        <p class="text-gray-600 leading-relaxed">{layanan.deskripsi}</p>
+                <p class="text-gray-600 leading-relaxed mb-4">{layanan.deskripsi}</p>
+        <a href={`/layanan/${layanan.id}`} class="text-blue-600 font-semibold hover:underline">
+          Selengkapnya &rarr;
+        </a>
+      </div>
+    ))}
+  </div>
+</Layout>

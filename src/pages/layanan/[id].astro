@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { daftarLayanan } from '../../data/layanan.js';
+
+// Tambahkan fungsi ini agar Astro tahu halaman apa saja yang harus dibuat
+export function getStaticPaths() {
+  return daftarLayanan.map((layanan) => ({
+    params: { id: layanan.id },
+  }));
+}
+
+const { id } = Astro.params;
+const layanan = daftarLayanan.find((l) => l.id === id);
+---
+
+<Layout judulHalaman={`${layanan ? layanan.nama : 'Tidak Ditemukan'} - Nusantara Tech`}>
+  <div class="max-w-2xl mx-auto py-8">
+    {layanan ? (
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-6">{layanan.nama}</h1>
+        <p class="text-lg text-gray-700 leading-relaxed mb-8">{layanan.deskripsi}</p>
+        <p class="text-gray-600 mb-8">
+          Tim ahli kami siap membantu Anda merancang dan membangun solusi yang tepat sasaran untuk bisnis Anda.
+        </p>
+        <a href="/layanan" class="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
+          &larr; Kembali ke Layanan
+        </a>
+      </div>
+    ) : (
+      <div class="text-center">
+        <h1 class="text-3xl font-bold text-red-600 mb-4">Layanan Tidak Ditemukan</h1>
+        <a href="/layanan" class="text-blue-600 hover:underline">&larr; Kembali ke Layanan</a>
+      </div>
+    )}
+  </div>
+</Layout>
