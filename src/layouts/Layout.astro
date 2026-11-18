@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
 const { judulHalaman = "Nusantara Tech" } = Astro.props;
 ---
 <html lang="id">
@@ -9,21 +9,63 @@ const { judulHalaman = "Nusantara Tech" } = Astro.props;
     <title>{judulHalaman}</title>
   </head>
   
-  <body class="bg-gray-50 text-gray-800 font-sans">
+  <body class="bg-gray-50 text-gray-800 font-sans dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
     
-    <nav class="bg-gray-900 text-white p-4 shadow-md">
-      <div class="container mx-auto flex gap-6 justify-center font-semibold">
-        <a href="/" class="hover:text-blue-400 transition-colors">Beranda</a>
-        <a href="/layanan" class="hover:text-blue-400 transition-colors">Layanan</a>
-        <a href="/tentang" class="hover:text-blue-400 transition-colors">Tentang</a>
-		<a href="/kontak" class="hover:text-blue-400 transition-colors">Kontak</a>
-		<a href="/blog" class="hover:text-blue-400 transition-colors">Blog</a>
+    <nav class="bg-gray-900 text-white p-4 shadow-md dark:bg-black transition-colors duration-300">
+      <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4">
+        
+        <!-- Menu Navigasi -->
+        <div class="flex gap-6 font-semibold">
+          <a href="/" class="hover:text-blue-400 transition-colors">Beranda</a>
+          <a href="/layanan" class="hover:text-blue-400 transition-colors">Layanan</a>
+          <a href="/tentang" class="hover:text-blue-400 transition-colors">Tentang</a>
+          <a href="/blog" class="hover:text-blue-400 transition-colors">Blog</a>
+          <a href="/kontak" class="hover:text-blue-400 transition-colors">Kontak</a>
+        </div>
+
+        <!-- Tombol Dark Mode -->
+        <button id="theme-toggle" class="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors text-sm">
+          🌙 Mode Gelap
+        </button>
+        
       </div>
     </nav>
     
-    <main class="container mx-auto p-8 mt-4 bg-white shadow-lg rounded-lg min-h-[70vh]">
+    <main class="container mx-auto p-8 mt-4 bg-white shadow-lg rounded-lg min-h-[70vh] dark:bg-gray-800 transition-colors duration-300">
       <slot />
     </main>
 
   </body>
 </html>
+
+<script>
+  // Fungsi utama untuk mengubah tema
+  const setTheme = (isDark: boolean) => {
+    const html = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    
+    if (isDark) {
+      html.classList.add('dark');
+      if (btn) btn.innerHTML = '☀️ Mode Terang';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.classList.remove('dark');
+      if (btn) btn.innerHTML = '🌙 Mode Gelap';
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
+  // 1. Cek tema saat halaman pertama kali dimuat
+  const currentTheme = localStorage.getItem('theme');
+  setTheme(currentTheme === 'dark');
+
+  // 2. Event Delegation (Jaring pengaman agar klik selalu terdeteksi)
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    // Jika yang diklik adalah tombol theme-toggle
+    if (target.closest('#theme-toggle')) {
+      const isCurrentlyDark = document.documentElement.classList.contains('dark');
+      setTheme(!isCurrentlyDark);
+    }
+  });
+</script>
